@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Thunder Creatives — Creative studio</title>
+  <meta name="description" content="Thunder Creatives is a creative studio crafting websites, social media campaigns, packaging, brand identities and video.">
+  <meta name="theme-color" content="#ffffff">
+  <link rel="icon" href="favicon.ico">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- ============ HEADER ============ -->
+  <header class="head">
+    <a href="#top" class="head__brand" data-scroll>Thunder Creatives<sup>©</sup></a>
+    <p class="head__tag">Creative studio for brands —<br>web, social, packaging, identity &amp; film.</p>
+    <p class="head__right"><a href="mailto:info@thundercreatives.com?subject=Let%E2%80%99s%20talk">Let’s talk</a><br><a href="mailto:info@thundercreatives.com">info@thundercreatives.com</a></p>
+  </header>
+
+  <!-- ============ WORK: fixed stage, the camera zooms into the rows as you scroll ============ -->
+  <div class="stage" aria-label="Selected work">
+    <div class="stage__mark"><div class="wordmark" data-wordmark aria-hidden="true"></div></div>
+    <div class="grid" id="grid"></div>
+  </div>
+
+  <main id="top">
+    <h1 class="sr-only">Thunder Creatives — creative studio</h1>
+    <!-- scroll length for the zoom (height set by js) -->
+    <div class="work-spacer" aria-hidden="true"></div>
+
+    <!-- ============ STUDIO INFO ============ -->
+    <section class="info" id="contact">
+      <div class="info__row">
+        <h2 class="info__label">About</h2>
+        <div class="info__body info__body--wide">
+          <p>We’re a creative studio. We partner with brands, startups and agencies to make work people stop scrolling for.<br>
+          Agency vision, studio precision — from brand blueprints to the last pixel.</p>
+        </div>
+      </div>
+
+      <div class="info__row">
+        <h2 class="info__label">Services</h2>
+        <ul class="info__body">
+          <li>Website design &amp; development</li>
+          <li>Social media &amp; ad creatives</li>
+          <li>Packaging design</li>
+          <li>Logo &amp; brand identity</li>
+          <li>Brand strategy &amp; naming</li>
+          <li>Video, reels &amp; motion</li>
+          <li>3D &amp; product CGI</li>
+          <li>Content production</li>
+          <li>AI-assisted visuals</li>
+        </ul>
+        <p class="info__body">Creative across the board. Strategy to pixel, shelf to screen.</p>
+      </div>
+
+      <div class="info__row">
+        <h2 class="info__label">Clients</h2>
+        <ul class="info__body">
+          <li>Toyota</li>
+          <li>IndiGo</li>
+          <li>Hindustan Coca-Cola Beverages</li>
+          <li>GSK</li>
+          <li>Hexagon</li>
+          <li>Vrindaam</li>
+          <li>Hangyo</li>
+          <li>Ching’s Secret</li>
+          <li>Melorra</li>
+          <li>Vi</li>
+          <li>Jaipore</li>
+          <li>Sushupti</li>
+          <li>Vistaar Finance</li>
+        </ul>
+        <div class="info__body info__split">
+          <h3 class="info__label">Industries</h3>
+          <ul>
+            <li>Automotive</li>
+            <li>Aviation &amp; travel</li>
+            <li>Food &amp; FMCG</li>
+            <li>Beauty &amp; wellness</li>
+            <li>Jewellery</li>
+            <li>Finance</li>
+            <li>Telecom</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- TODO(client): replace phone / social links with real details -->
+      <div class="info__row">
+        <h2 class="info__label">Contact</h2>
+        <div class="info__body">
+          <p><a href="mailto:info@thundercreatives.com">info@thundercreatives.com</a><br><a href="tel:+910000000000">+91 00000 00000</a></p>
+          <p class="info__links"><a href="#">Instagram ↗</a><br><a href="#">LinkedIn ↗</a><br><a href="#">Behance ↗</a></p>
+        </div>
+        <div class="info__body">
+          <p>Got a brand that needs a storm? We’re taking on new projects for the season ahead.</p>
+          <p class="info__links"><a href="mailto:info@thundercreatives.com?subject=New%20project">Let’s talk ↗</a></p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ============ FOOTER WORDMARK ============ -->
+  <footer class="foot">
+    <div class="wordmark" data-wordmark aria-hidden="true"></div>
+    <div class="foot__bar">
+      <p>© <span data-year>2026</span> Thunder Creatives</p>
+      <a href="#top" data-scroll>Back to top ↑</a>
+    </div>
+  </footer>
+
+  <!-- ============ PROJECT POPUP ============ -->
+  <div class="modal" id="modal" tabindex="-1" role="dialog" aria-modal="true" aria-labelledby="modal-title" hidden>
+    <div class="modal__scroll" data-lenis-prevent>
+      <div class="modal__grid">
+        <div class="modal__media"></div>
+        <aside class="modal__info">
+          <h2 class="mi__title" id="modal-title"></h2>
+          <p class="mi__year"></p>
+          <dl class="mi__list"></dl>
+          <p class="mi__desc"></p>
+          <p class="mi__links">
+            <a href="mailto:info@thundercreatives.com?subject=Similar%20project">Start a similar project ↗</a>
+          </p>
+          <div class="mi__nav">
+            <button type="button" class="mi__btn" data-next>Next project →</button>
+            <button type="button" class="mi__btn" data-close>Close ✕</button>
+          </div>
+          <p class="mi__count"></p>
+        </aside>
+      </div>
+    </div>
+    <div class="modal__cursor" aria-hidden="true">Close ✕</div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
