@@ -16,16 +16,19 @@
 
   <!-- ============ HEADER ============ -->
   <header class="head">
-    <a href="#top" class="head__brand" data-scroll>Thunder Creatives<sup>©</sup></a>
+    <a href="#top" class="head__brand" data-scroll aria-label="Thunder Creatives — back to top"><img src="assets/logo-white.png" alt="" width="595" height="167"></a>
     <p class="head__tag">Creative studio for brands —<br>web, social, packaging, identity &amp; film.</p>
     <p class="head__right"><a href="mailto:info@thundercreatives.com?subject=Let%E2%80%99s%20talk">Let’s talk</a><br><a href="mailto:info@thundercreatives.com">info@thundercreatives.com</a></p>
   </header>
+  <!-- frosted layer behind the header, fades in once the page is scrolled -->
+  <div class="head-bg" aria-hidden="true"></div>
+  <!-- red half of the logo sits outside the blended header so it always stays brand red -->
+  <div class="head-logo" aria-hidden="true"><img src="assets/logo-red.png" alt="" width="595" height="167"></div>
 
   <!-- ============ WORK: fixed stage, the camera zooms into the rows as you scroll ============ -->
   <div class="stage" aria-label="Selected work">
     <div class="stage__mark">
       <div class="hero">
-        <svg class="hero__bolt" viewBox="65 0 126 256" aria-hidden="true"><polygon points="123.1 116.07 65.65 72.23 65.65 256 132.9 139.16 190.35 183.77 190.35 0 123.1 116.07"/></svg>
         <h1 class="hero__title">
           <span class="hero__line">We don’t do <span class="hero__muted">brainstorms.</span></span>
           <span class="hero__line">We do <span class="hero__accent">thunderstorms.</span></span>
@@ -35,6 +38,10 @@
           <li><strong>16+</strong><span>Years of turning briefs<br>into thunderstorms</span></li>
           <li><strong>50+</strong><span>Brands we’ve<br>worked with</span></li>
         </ul>
+        <div class="hero__zone">
+          <p><span class="hero__zone-label">Strike Zone</span> Here’s What Happens When a Brief Meets a Storm.</p>
+          <p>Different brands. Different briefs. Same charge.</p>
+        </div>
       </div>
     </div>
     <div class="grid" id="grid"></div>
@@ -46,75 +53,135 @@
 
     <!-- ============ STUDIO INFO ============ -->
     <section class="info" id="contact">
-      <div class="info__row">
+      <div class="info__row" id="about">
         <h2 class="info__label">About</h2>
-        <div class="info__body info__body--wide">
-          <p>We’re a creative studio. We partner with brands, startups and agencies to make work people stop scrolling for.<br>
-          Agency vision, studio precision — from brand blueprints to the last pixel.</p>
+        <div class="info__body info__body--wide info__prose">
+          <p class="info__head">A Little Chaos. A Lot of Voltage.</p>
+          <p>Sixteen years in, one thing hasn’t changed: the objective decides everything.</p>
+          <p>Need people to notice you? Remember you? Talk about you? Pick you? We start there, find the one idea worth striking with, and pick the format that lands it. Sometimes that’s a newspaper jacket, sometimes a WhatsApp chatbot, sometimes a billboard or a reel.</p>
+          <p>From naming a brand to launching it, strategy, design, motion and digital work together, so the work fits the goal and not the other way round.</p>
         </div>
       </div>
 
-      <div class="info__row">
+      <div class="info__row" id="services">
         <h2 class="info__label">Services</h2>
-        <ul class="info__body">
-          <li>Website design &amp; development</li>
-          <li>Social media &amp; ad creatives</li>
-          <li>Packaging design</li>
-          <li>Logo &amp; brand identity</li>
-          <li>Brand strategy &amp; naming</li>
-          <li>Video, reels &amp; motion</li>
-          <li>3D &amp; product CGI</li>
-          <li>Content production</li>
-          <li>AI-assisted visuals</li>
-        </ul>
-        <p class="info__body">Creative across the board. Strategy to pixel, shelf to screen.</p>
+        <div class="info__body info__body--wide info__prose">
+          <p class="info__head">Five Ways We Strike.</p>
+          <p>From defining brand DNA to launching full-scale campaigns, we help brands show up with clarity, confidence and impact. Pick your bolt.</p>
+          <ol class="info__services">
+            <li>Brand Strategy</li>
+            <li>Logo &amp; Visual Identity</li>
+            <li>Digital Films &amp; Motion Graphics</li>
+            <li>Website Design &amp; Development</li>
+            <li>Packaging Design &amp; Production</li>
+          </ol>
+          <p class="info__kicker">Anyone can make it pretty. We make it stick.</p>
+        </div>
       </div>
 
-      <div class="info__row">
-        <h2 class="info__label">Clients</h2>
-        <ul class="info__body">
-          <li>IndiGo</li>
-          <li>I-ON Broadband</li>
-          <li>LuLu Money</li>
-          <li>Ultrahuman</li>
-          <li>Loco Lane</li>
-          <li>Toyota</li>
-          <li>Hindustan Coca-Cola Beverages</li>
-          <li>GSK</li>
-          <li>Hexagon</li>
-          <li>Vrindaam</li>
-          <li>Hangyo</li>
-          <li>Ching’s Secret</li>
-          <li>Melorra</li>
-          <li>Vi</li>
-          <li>Jaipore</li>
-          <li>Sushupti</li>
-          <li>Vistaar Finance</li>
-        </ul>
-        <div class="info__body info__split">
-          <h3 class="info__label">Industries</h3>
+      <div class="info__row" id="vision">
+        <h2 class="info__label">Our Vision</h2>
+        <div class="info__body info__body--wide info__prose">
+          <p class="info__head">We’re Here To Cook Up A Storm.</p>
+          <p>Safe work gets polite nods. We’d rather get a reaction. We question the brief, poke at the obvious, and push every idea until people are talking about it at dinner.</p>
+        </div>
+      </div>
+
+      <div class="info__row" id="clients">
+        <h2 class="info__label">Thunder Tribe</h2>
+        <div class="info__body info__body--wide info__prose">
+          <p class="info__head">Brands Brave Enough to Stand in the Storm.</p>
+        </div>
+        <div class="info__body info__body--from2">
+          <h3 class="info__label info__sublabel">Clients</h3>
+          <ul class="info__cols">
+            <li>Toyota</li>
+            <li>IndiGo</li>
+            <li>Hindustan Coca-Cola Beverages</li>
+            <li>GSK</li>
+            <li>Hexagon</li>
+            <li>Vrindaam</li>
+            <li>Hangyo</li>
+            <li>Ching’s Secret</li>
+            <li>Melorra</li>
+            <li>Vi</li>
+            <li>Jaipore</li>
+            <li>Sushupti</li>
+            <li>Vistaar Finance</li>
+            <li>Aashirvaad</li>
+            <li>I-ON</li>
+            <li>YiPPee!</li>
+            <li>LuLu Money</li>
+            <li>Sunrisers Hyderabad</li>
+            <li>Flying Machine</li>
+            <li>Swiggy Dineout</li>
+            <li>Loco Bear</li>
+            <li>bunk.</li>
+            <li>Xiaomi</li>
+            <li>Axis Bank</li>
+            <li>happi Mobiles</li>
+            <li>GoPizza</li>
+            <li>Dibber</li>
+            <li>Vodafone Idea Foundation</li>
+            <li>CUMI</li>
+            <li>Murugappa</li>
+            <li>Vaya</li>
+          </ul>
+        </div>
+        <div class="info__body">
+          <h3 class="info__label info__sublabel">Industries</h3>
           <ul>
             <li>Automotive</li>
-            <li>Aviation &amp; travel</li>
-            <li>Food &amp; FMCG</li>
-            <li>Beauty &amp; wellness</li>
+            <li>Aviation &amp; Travel</li>
+            <li>Food &amp; Beverage</li>
+            <li>FMCG</li>
+            <li>Beauty &amp; Wellness</li>
+            <li>Education</li>
+            <li>Entertainment &amp; Sports</li>
+            <li>Financial Services</li>
             <li>Jewellery</li>
-            <li>Finance</li>
-            <li>Telecom</li>
+            <li>Technology</li>
+            <li>Telecommunications</li>
           </ul>
         </div>
       </div>
 
-      <!-- TODO(client): replace phone / social links with real details -->
+      <!-- TODO(client): replace Instagram / LinkedIn / Behance links with real URLs -->
       <div class="info__row">
         <h2 class="info__label">Contact</h2>
-        <div class="info__body">
-          <p><a href="mailto:info@thundercreatives.com">info@thundercreatives.com</a><br><a href="tel:+910000000000">+91 00000 00000</a></p>
-          <p class="info__links"><a href="#">Instagram ↗</a><br><a href="#">LinkedIn ↗</a><br><a href="#">Behance ↗</a></p>
+        <div class="info__body info__body--wide info__prose">
+          <p class="info__head">Got a Brand That Needs a Jolt?</p>
+          <p>Sharp ideas. Zero filler. Tell us what you’re building. We’ll bring the weather.</p>
         </div>
+        <!-- EMAIL SETUP: paste your Web3Forms access key into data-key (free key from https://web3forms.com).
+             Submissions are emailed to the address the key was created for. Without a key the form
+             falls back to opening the visitor's email app addressed to data-to. -->
+        <form class="cform info__body info__body--from2" id="contact-form" novalidate
+              data-key="" data-to="lokesh.achari@thundercreatives.com">
+          <input type="checkbox" name="botcheck" class="cform__trap" tabindex="-1" autocomplete="off" aria-hidden="true">
+          <label><span>Name</span><input name="name" autocomplete="name" required></label>
+          <label><span>Email</span><input name="email" type="email" autocomplete="email" required></label>
+          <label><span>Company</span><input name="company" autocomplete="organization"></label>
+          <label><span>What do you need?</span>
+            <select name="need">
+              <option value="">Choose one</option>
+              <option>Brand Strategy</option>
+              <option>Logo &amp; Visual Identity</option>
+              <option>Digital Films &amp; Motion Graphics</option>
+              <option>Website Design &amp; Development</option>
+              <option>Packaging Design &amp; Production</option>
+              <option>Something else</option>
+            </select>
+          </label>
+          <label class="cform__wide"><span>Message</span><textarea name="message" rows="4" required></textarea></label>
+          <button type="submit" class="cform__btn">Strike Up a Conversation ↗</button>
+          <p class="cform__status" role="status" aria-live="polite"></p>
+        </form>
         <div class="info__body">
-          <p>Got a brand that needs a storm? We’re taking on new projects for the season ahead.</p>
-          <p class="info__links"><a href="mailto:info@thundercreatives.com?subject=New%20project">Let’s talk ↗</a></p>
+          <p><strong>Lokesh Achari</strong><br>Creative Lead</p>
+          <p><a href="tel:+918861822182">+91 88618 22182</a><br><a href="mailto:lokesh.achari@thundercreatives.com">lokesh.achari@thundercreatives.com</a></p>
+          <p>Bangalore | India</p>
+          <p class="info__links"><a href="#">Instagram ↗</a><br><a href="#">LinkedIn ↗</a><br><a href="#">Behance ↗</a></p>
         </div>
       </div>
     </section>
@@ -124,7 +191,7 @@
   <footer class="foot">
     <div class="wordmark" data-wordmark aria-hidden="true"></div>
     <div class="foot__bar">
-      <p>© <span data-year>2026</span> Thunder Creatives</p>
+      <p>© <span data-year>2026</span> Thunder Creatives — Loud on purpose.</p>
       <a href="#top" data-scroll>Back to top ↑</a>
     </div>
   </footer>

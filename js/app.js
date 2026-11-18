@@ -13,10 +13,16 @@
   /* ---------------------------------------------------------
      Visited projects (per-browser convenience, safe if storage is blocked)
   --------------------------------------------------------- */
-  const SEEN_KEY = 'tc-seen-projects';
-  let seen = new Set();
-  try { seen = new Set(JSON.parse(localStorage.getItem(SEEN_KEY) || '[]')); } catch (e) { /* storage unavailable */ }
-  const saveSeen = () => { try { localStorage.setItem(SEEN_KEY, JSON.stringify([...seen])); } catch (e) { /* ignore */ } };
+  try { localStorage.removeItem('tc-seen-projects'); } catch (e) { /* storage unavailable */ }
+
+  // frosted header layer: sized to the header, shown once the page has scrolled
+  const headEl = document.querySelector('.head');
+  const sizeHead = () => document.documentElement.style.setProperty('--head-h', headEl.offsetHeight + 'px');
+  const onScrollHead = () => document.documentElement.classList.toggle('is-scrolled', window.scrollY > 8);
+  sizeHead(); onScrollHead();
+  window.addEventListener('resize', sizeHead);
+  window.addEventListener('load', sizeHead);
+  window.addEventListener('scroll', onScrollHead, { passive: true });
 
   /* ---------------------------------------------------------
      Smooth scroll
@@ -65,6 +71,62 @@
     if (!el.getAttribute('aria-label') && el.matches('a, button')) el.setAttribute('aria-label', el.textContent.trim());
   }
   $$('.head a, .info a, .foot a, .modal__info a, .mi__btn').forEach(splitStretch);
+
+  // Contact form: sends through Web3Forms (key in data-key on the form) and emails the enquiry.
+  // Without a key it falls back to opening the visitor's email app.
+  const form = $('#contact-form');
+  if (form) {
+    const btn = $('.cform__btn', form);
+    const status = $('.cform__status', form);
+    const say = (msg, kind) => { status.textContent = msg; status.className = 'cform__status' + (kind ? ' is-' + kind : ''); };
+    form.addEventListener('input', (e) => e.target.classList.remove('is-invalid'));
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const fields = $$('[required]', form);
+      fields.forEach((f) => f.classList.toggle('is-invalid', !f.checkValidity()));
+      const bad = fields.find((f) => !f.checkValidity());
+      if (bad) { say(bad.type === 'email' && bad.value ? 'Please enter a valid email address.' : 'Please fill in your name, email and message.', 'error'); bad.focus(); return; }
+
+      const d = new FormData(form);
+      if (d.get('botcheck')) return;                    // honeypot ticked: a bot
+      const need = d.get('need'), company = d.get('company');
+      const subject = 'New website enquiry' + (need ? ' - ' + need : '') + (company ? ' (' + company + ')' : '');
+
+      if (!form.dataset.key) {
+        const body = ['Name: ' + d.get('name'), 'Email: ' + d.get('email'), 'Company: ' + (company || '-'),
+          'What do you need?: ' + (need || '-'), '', d.get('message')].join('\n');
+        window.location.href = 'mailto:' + form.dataset.to + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+        return;
+      }
+
+      btn.disabled = true;
+      say('Sending…');
+      try {
+        const res = await fetch('https://api.web3forms.com/submit', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+          body: JSON.stringify({
+            access_key: form.dataset.key,
+            subject,
+            from_name: 'Thunder Creatives website',
+            name: d.get('name'),
+            email: d.get('email'),
+            company: company || '-',
+            'what do you need': need || '-',
+            message: d.get('message'),
+          }),
+        });
+        const out = await res.json().catch(() => ({}));
+        if (!res.ok || !out.success) throw new Error(out.message || 'Request failed');
+        form.reset();
+        say('Thanks! Your message is in. We’ll get back to you soon.', 'ok');
+      } catch (err) {
+        say('Sorry, that didn’t go through. Please try again or email ' + form.dataset.to + '.', 'error');
+      } finally {
+        btn.disabled = false;
+      }
+    });
+  }
 
   /* ---------------------------------------------------------
      Wordmark: letters slide right-to-left through a "lens". The magnified middle fills most of the
@@ -181,22 +243,20 @@
   const ASPECT = 0.6;                // tile media height / width (matches CSS aspect-ratio 5/3)
   grid.style.setProperty('--k', K);
 
-  const EYE = '<svg class="tile__eye" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M1.5 12S5.5 5 12 5s10.5 7 10.5 7-4 7-10.5 7S1.5 12 1.5 12z"/><circle cx="12" cy="12" r="3"/></svg>';
-  const CROSS = '<div class="tile__seen"><svg viewBox="0 0 100 100" preserveAspectRatio="none"><line x1="0" y1="0" x2="100" y2="100"/><line x1="100" y1="0" x2="0" y2="100"/></svg></div>';
   const firstTile = new Set();
 
   function makeTile(p) {
     const b = document.createElement('button');
     b.type = 'button';
-    b.className = 'tile' + (seen.has(p.id) ? ' is-seen' : '');
+    b.className = 'tile';
     b.dataset.id = p.id;
     if (firstTile.has(p.id)) { b.tabIndex = -1; b.setAttribute('aria-hidden', 'true'); }
     else { firstTile.add(p.id); b.setAttribute('aria-label', `Open project: ${p.name}`); }
     b.innerHTML =
       `<div class="tile__media"><img src="${p.cover.replace('assets/img/', 'assets/thumb/')}" alt="" loading="lazy" decoding="async" style="object-position:${p.pos || '50% 50%'}">` +
       (p.video ? `<video muted loop playsinline preload="none" data-src="${p.video}"></video>` : '') +
-      `${CROSS}</div>` +
-      `<div class="tile__meta"><span class="tile__name">${EYE}<span class="tile__label">${p.name}</span></span><span class="tile__year">../${p.year}</span></div>`;
+      `</div>` +
+      `<div class="tile__meta"><span class="tile__name"><span class="tile__label">${p.name}</span></span><span class="tile__year">../${p.year}</span></div>`;
     splitStretch(b.querySelector('.tile__label'));
     if (p.video) {
       const v = b.querySelector('video');
@@ -291,7 +351,6 @@
   const mediaEl = $('.modal__media', modal);
   const cursorEl = $('.modal__cursor', modal);
   let current = -1;
-  let openedIds = [];
   let lastFocus = null;
   let blocks = [];               // popup media blocks, revealed by scroll position
   let closeTimer = 0;
@@ -300,7 +359,6 @@
   function renderProject(i) {
     const p = PROJECTS[i];
     current = i;
-    if (!openedIds.includes(p.id)) openedIds.push(p.id);
     $('.mi__title', modal).textContent = p.name;
     $('.mi__year', modal).textContent = p.year;
     const list = [['Category', [p.category]], ['Our role', p.role], ['Client', [p.client]], ['Deliverables', p.deliverables]];
@@ -374,7 +432,6 @@
     if (i < 0) return;
     clearTimeout(closeTimer);
     lastFocus = fromEl || document.activeElement;
-    openedIds = [];
     renderProject(i);
     modal.hidden = false;
     document.documentElement.classList.add('modal-open');
@@ -392,17 +449,10 @@
     document.documentElement.classList.remove('modal-open');
     if (lenis) lenis.start();
     $$('video', mediaEl).forEach((v) => v.pause());
-    const ids = openedIds.slice();
     closeTimer = setTimeout(() => {
       modal.hidden = true;
       blocks = [];
       mediaEl.innerHTML = '';
-      // mark as seen once the popup is gone, so the grey wash fades in visibly
-      ids.forEach((id) => {
-        seen.add(id);
-        $$(`.tile[data-id="${id}"]`, grid).forEach((t) => t.classList.add('is-seen'));
-      });
-      saveSeen();
     }, 450);
     if (restoreFocus && lastFocus && lastFocus.focus) lastFocus.focus({ preventScroll: true });
     else if (document.activeElement) document.activeElement.blur();
