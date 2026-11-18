@@ -239,7 +239,8 @@
     const acrossTop = small ? 1.15 : vw < 1100 ? 1.6 : 1.9;
     const acrossBottom = small ? 2.4 : vw < 1100 ? 3.6 : 4.5;
     const pitch = (small ? 0.3 : 0.38) * vh;          // scroll distance that advances the stack by one row
-    const heroH = (small ? 0.42 : 0.72) * vh;         // where the first row starts (below the wordmark)
+    const heroH = (small ? 0.55 : 0.72) * vh;         // where the first row starts (below the hero headline)
+    markWrap.style.height = heroH.toFixed(0) + 'px';
 
     const hOf = (across) => (vw / across - gap) * ASPECT + metaH;
     const hT = Math.min(hOf(acrossTop), 0.7 * vh);
@@ -267,7 +268,7 @@
     const lift = Math.max(0, scroll - uEnd);          // after the last row, the stage scrolls away normally
     stage.style.transform = lift ? `translate3d(0,${(-lift).toFixed(2)}px,0)` : '';
     let top = edge(z0 - u);
-    markWrap.style.transform = `translate3d(0,${(top - markH - 10).toFixed(2)}px,0)`;
+    markWrap.style.transform = `translate3d(0,${(top - markH).toFixed(2)}px,0)`;
     rows.forEach((r, i) => {
       const bottom = edge(z0 + (i + 1) * pitch - u);
       const h = bottom - top;
