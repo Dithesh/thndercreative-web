@@ -30,7 +30,7 @@ python -m http.server 5500   # → http://localhost:5500
 * **Wordmark look:** `LENS_MAX` (centre magnification), `LENS_WIDTH` (size of the magnified zone), `SIDE` / `SIDE_TAPER` (how slim the side letters start / how fast they thin out) in `js/app.js`
 
 ## Before going live — replace placeholders
-* Instagram / LinkedIn / Behance links (`index.html`)
+* LinkedIn link in the Contact section (`index.html`)
 * Contact form email: get a free access key at https://web3forms.com (enter the inbox that should receive enquiries) and paste it into `data-key` on `#contact-form` in `index.html`. Until then the form falls back to opening the visitor's email app addressed to `data-to`
 * Project years, roles and deliverables in `js/data.js` are best guesses — confirm with the team
 * Add real website-design projects (screenshots) — none were in the source folders
